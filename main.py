@@ -1,9 +1,4 @@
-'''
-This tool is intended to help with the creation and representation of
-weighted and unweighted graphs. 
-Type of representation: Adjacency List.
-'''
-
+# VISUALIZATION EXAMPLE
 # UNWEIGHTED
 '''
 {
@@ -29,7 +24,7 @@ class Graph():
     self.prop2 = prop2
     self.representation ={}
   
-  def add_node(self, tail, head, weight = None):
+  def add_edge(self, tail, head, weight = None):
     if self.prop1 == 'weighted':
       self.representation.setdefault(tail, {})[head] = weight
 
@@ -42,10 +37,12 @@ class Graph():
       if self.prop2 == "undirected":
         self.representation.setdefault(head, []).append(tail)
 
-
-g = Graph('unweighted', 'directed')
-g.add_node('A', 'B', 5)
-g.add_node('A', 'C', 3)
-g.add_node('C', 'B', 3)
-print(dict(g.representation))
+  def __repr__(self):
+        return str(self.representation)
   
+# EXAMPLE OF USAGE
+g = Graph('weighted', 'directed')
+g.add_edge('A', 'B', 4)
+g.add_edge('A', 'C', 3)
+g.add_edge('C', 'D', 5)
+print(g)
