@@ -24,24 +24,32 @@ class Graph():
     self.prop2 = prop2
     self.representation ={}
   
+  def add_nodes(self, nodes):
+    for node in nodes:
+      if self.prop1 == 'weighted':
+        self.representation[node] = {}
+      else:
+        self.representation[node] = []
+     
   def add_edge(self, tail, head, weight = None):
     if self.prop1 == 'weighted':
-      self.representation.setdefault(tail, {})[head] = weight
+      self.representation[tail][head] = weight
 
       if self.prop2 == "undirected":
-        self.representation.setdefault(head, {})[tail] = weight
+        self.representation[head][tail] = weight
 
     else:
-      self.representation.setdefault(tail, []).append(head)
+      self.representation[tail].append(head)
 
       if self.prop2 == "undirected":
-        self.representation.setdefault(head, []).append(tail)
+        self.representation[head].append(tail)
 
   def __repr__(self):
         return str(self.representation)
   
 # EXAMPLE OF USAGE
 g = Graph('weighted', 'directed')
+g.add_nodes(['A', 'B', 'C', 'D'])
 g.add_edge('A', 'B', 4)
 g.add_edge('A', 'C', 3)
 g.add_edge('C', 'D', 5)
